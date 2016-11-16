@@ -5,6 +5,7 @@ import unittest
 from user import User
 from cart import Cart
 from product import Product
+from cartitem import CartItem
 
 
 class TestCart(unittest.TestCase):
@@ -171,6 +172,18 @@ class TestCart(unittest.TestCase):
         self.cart2.empty()
 
         return None
-
+    
+    def test_item_in_cart(self):
+        item = self.cart1.get_item_in_cart(self.product1.sku)
+        self.assertIsNone(item)
+        
+        self.cart1.add_item(self.product1)
+        item = self.cart1.get_item_in_cart(self.product1)
+        self.assertIsInstance(item, CartItem)
+        
+        self.cart1.empty()
+        
+        return None
+    
 if __name__ == '__main__':
     unittest.main()
