@@ -85,7 +85,7 @@ class TestCart(unittest.TestCase):
         
         self.cart1.empty()
         
-        # check BOGOF functionality - should be (2 * 9,99) - 9.99
+        # check BOGOF functionality - should be (2 * 9.99) - 9.99
         self.cart1.add_item(self.product1, 2)
         self.cart1.add_discount('bogof_discount')
         self.assertEqual(self.cart1.get_total(), 9.99)
@@ -161,7 +161,7 @@ class TestCart(unittest.TestCase):
         
         self.cart2.empty()
         
-        # Check BOGOF + bulk + loyalty. (((30 + 9.99 + 9.99 - 9,99) - 10%) - 2%)
+        # Check BOGOF + bulk + loyalty. (((30 + 9.99 + 9.99 - 9.99) - 10%) - 2%)
         self.cart2.add_item(self.product2)
         self.cart2.add_item(self.product1, 2)
         self.cart2.add_discount('bogof_discount')
