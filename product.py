@@ -14,8 +14,6 @@ class Product:
         self.sku = sku
         self.title = title
         self.price = price
-        
-        return None
     
     def __str__(self):
         return self.title

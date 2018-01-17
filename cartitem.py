@@ -12,8 +12,6 @@ class CartItem:
         """
         self.product = product
         self.quantity = quantity
-        
-        return None
 
     def __str__(self):
         return self.product.title

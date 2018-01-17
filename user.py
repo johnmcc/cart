@@ -14,8 +14,6 @@ class User:
         self.name = name
         self.email = email
         self.is_loyal = is_loyal
-        
-        return None
     
     def __str__(self):
         return self.name
