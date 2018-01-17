@@ -11,7 +11,7 @@ class DiscountManager:
         """ Apply discounts to a cart. Parameter:
             - cart - class Cart - cart.py
         """
-        self.discounts = ['bogof_discount', 'bulk_discount', 'loyalty_discount']
+        self.discounts = ('bogof_discount', 'bulk_discount', 'loyalty_discount')
         self.cart = cart
 
         return None
