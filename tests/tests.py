@@ -1,6 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import sys
+sys.path.append(".")
+sys.path.append("..")
+
 import unittest
 from user import User
 from cart import Cart
