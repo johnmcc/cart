@@ -80,6 +80,14 @@ class TestCart(unittest.TestCase):
         self.cart1.add_discount('bogof_discount')
         self.assertEqual(self.cart1.total, 19.98)
 
+    def test_total_bogof_odd_quantity_high_number(self):
+        # Check that carts with BOGOF charge for the correct number of items
+        # e.g. Quantity 3: charge for 2. Quantity 4 > charge for 2 etc.
+        # Should be (9 * 9.99) - (4 * 9.99)
+        self.cart1.add_item(self.product1, 9)
+        self.cart1.add_discount('bogof_discount')
+        self.assertEqual(self.cart1.total, 49.95)
+
     def test_total_bogof_multiple_items(self):
         # Ensure BOGOF applies more than once where appropriate
         # Should be ((2 * 9.99) - 9.99) + ((2 * 30) - 30) = 39.99

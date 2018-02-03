@@ -3,6 +3,7 @@
 
 """ Handles discounts for cart objects """
 
+import math
 
 class DiscountManager:
     def __init__(self, cart):
@@ -29,7 +30,7 @@ class DiscountManager:
         bogof_discount = 0
         for item in self.cart.items:
             if item.quantity > 1:
-                bogof_discount += ((item.quantity / 2) * item.product.price)
+                bogof_discount += (math.floor(item.quantity / 2) * item.product.price)
 
         self.cart._total -= bogof_discount
 
