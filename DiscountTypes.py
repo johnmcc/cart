@@ -1,4 +1,4 @@
-from enum import Enum, auto
+from enum import Enum
 
 class DiscountTypes(Enum):
     BOGOF_DISCOUNT = "bogof_discount"
