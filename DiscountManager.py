@@ -4,13 +4,13 @@
 """ Handles discounts for cart objects """
 
 import math
+from DiscountTypes import DiscountTypes
 
 class DiscountManager:
     def __init__(self, cart):
         """ Apply discounts to a cart. Parameter:
             - cart - class Cart - cart.py
         """
-        self.discounts = ('bogof_discount', 'bulk_discount', 'loyalty_discount')
         self.cart = cart
 
     def apply_discounts(self):
@@ -18,10 +18,10 @@ class DiscountManager:
             in the order specified in self.discounts
         """
         # for each valid discount...
-        for discount in self.discounts:
+        for discount in list(DiscountTypes):
             # only apply the discount if it is set in the cart
             if(discount in self.cart.discounts):
-                getattr(self, discount)()
+                getattr(self, discount.value)()
 
     def bogof_discount(self):
         """ Buy one, get one free.
