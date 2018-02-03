@@ -12,7 +12,7 @@ class DiscountManager:
         self.discounts = ('bogof_discount', 'bulk_discount', 'loyalty_discount')
         self.cart = cart
 
-    def get_discount_amount(self):
+    def apply_discounts(self):
         """ Applies the relevant discounts for each cart order,
             in the order specified in self.discounts
         """

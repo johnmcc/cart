@@ -22,7 +22,7 @@ class Cart:
     @property
     def total(self):
         self._total = sum(item.product.price * item.quantity for item in self.items)
-        DiscountManager(self).get_discount_amount()
+        DiscountManager(self).apply_discounts()
         return round(self._total, 2)
 
     def add_discount(self, discount):
