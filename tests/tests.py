@@ -6,10 +6,10 @@ sys.path.append(".")
 sys.path.append("..")
 
 import unittest
-from user import User
-from cart import Cart
-from product import Product
-from cartitem import CartItem
+from User import User
+from Cart import Cart
+from Product import Product
+from CartItem import CartItem
 
 
 class TestCart(unittest.TestCase):

@@ -3,8 +3,8 @@
 
 """ Representation of a cart object """
 
-from cartitem import CartItem
-from discounts import DiscountManager
+from CartItem import CartItem
+from DiscountManager import DiscountManager
 
 
 class Cart:
