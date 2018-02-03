@@ -3,8 +3,6 @@
 
 """ Handles discounts for cart objects """
 
-import math
-
 
 class DiscountManager:
     def __init__(self, cart):
