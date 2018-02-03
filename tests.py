@@ -59,19 +59,18 @@ class TestCart(unittest.TestCase):
     def test_total(self):
         #  No discount - should be 9.99
         self.cart1.add_item(self.product1)
-        self.assertEqual(self.cart1.get_total(), 9.99)
+        self.assertEqual(self.cart1.total, 9.99)
 
-        self.cart1.empty()
-
+    def test_total_two_items_no_discount(self):
         # Two items, no discount - should be 19.98
         self.cart1.add_item(self.product1, 2)
-        self.assertEqual(self.cart1.get_total(), 19.98)
+        self.assertEqual(self.cart1.total, 19.98)
 
     def test_total_bogof(self):
         # check BOGOF functionality - should be (2 * 9.99) - 9.99
         self.cart1.add_item(self.product1, 2)
         self.cart1.add_discount('bogof_discount')
-        self.assertEqual(self.cart1.get_total(), 9.99)
+        self.assertEqual(self.cart1.total, 9.99)
 
     def test_total_bogof_odd_quantity(self):
         # Check that carts with BOGOF charge for the correct number of items
@@ -79,7 +78,7 @@ class TestCart(unittest.TestCase):
         # Should be (3 * 9.99) - 9.99
         self.cart1.add_item(self.product1, 3)
         self.cart1.add_discount('bogof_discount')
-        self.assertEqual(self.cart1.get_total(), 19.98)
+        self.assertEqual(self.cart1.total, 19.98)
 
     def test_total_bogof_multiple_items(self):
         # Ensure BOGOF applies more than once where appropriate
@@ -87,7 +86,7 @@ class TestCart(unittest.TestCase):
         self.cart1.add_item(self.product1, 2)
         self.cart1.add_item(self.product2, 2)
         self.cart1.add_discount('bogof_discount')
-        self.assertEqual(self.cart1.get_total(), 39.99)
+        self.assertEqual(self.cart1.total, 39.99)
 
     def test_total_bogof_other_items(self):
         # Check that BOGOF applies properly to a single item
@@ -96,7 +95,7 @@ class TestCart(unittest.TestCase):
         self.cart1.add_item(self.product1, 2)
         self.cart1.add_item(self.product2, 1)
         self.cart1.add_discount('bogof_discount')
-        self.assertEqual(self.cart1.get_total(), 39.99)
+        self.assertEqual(self.cart1.total, 39.99)
 
     def test_remove_discount(self):
         # Check removing a discount has the desired effect
@@ -104,14 +103,14 @@ class TestCart(unittest.TestCase):
         self.cart1.add_item(self.product1, 2)
         self.cart1.add_discount('bogof_discount')
         self.cart1.remove_discount('bogof_discount')
-        self.assertEqual(self.cart1.get_total(), 19.98)
+        self.assertEqual(self.cart1.total, 19.98)
 
     def test_bulk_discount(self):
         # Check bulk discount - should be (9.99 + 30) * 0.9
         self.cart1.add_item(self.product1)
         self.cart1.add_item(self.product2)
         self.cart1.add_discount('bulk_discount')
-        self.assertEqual(self.cart1.get_total(), 35.99)
+        self.assertEqual(self.cart1.total, 35.99)
 
     def test_bogof_bulk(self):
         # Check BOGOF + bulk together - should be (9.99 + 9.99 - 9.99 + 30) * 0.9
@@ -119,20 +118,20 @@ class TestCart(unittest.TestCase):
         self.cart1.add_item(self.product2)
         self.cart1.add_discount('bulk_discount')
         self.cart1.add_discount('bogof_discount')
-        self.assertEqual(self.cart1.get_total(), 35.99)
+        self.assertEqual(self.cart1.total, 35.99)
 
     def test_loyalty_discount(self):
         # Check loyalty discount - 9.99 * 0.98
         self.cart2.add_item(self.product1)
         self.cart2.add_discount('loyalty_discount')
-        self.assertEqual(self.cart2.get_total(), 9.79)
+        self.assertEqual(self.cart2.total, 9.79)
 
     def test_bogof_and_loyalty(self):
         # Check BOGOF + loyalty. (9.99 + 9.99 - 9.99) * 0.98
         self.cart2.add_item(self.product1, 2)
         self.cart2.add_discount('loyalty_discount')
         self.cart2.add_discount('bogof_discount')
-        self.assertEqual(self.cart2.get_total(), 9.79)
+        self.assertEqual(self.cart2.total, 9.79)
 
     def test_all_discounts(self):
         # Check BOGOF + bulk + loyalty. (((30 + 9.99 + 9.99 - 9.99) - 10%) - 2%)
@@ -141,7 +140,7 @@ class TestCart(unittest.TestCase):
         self.cart2.add_discount('bogof_discount')
         self.cart2.add_discount('bulk_discount')
         self.cart2.add_discount('loyalty_discount')
-        self.assertEqual(self.cart2.get_total(), 35.27)
+        self.assertEqual(self.cart2.total, 35.27)
 
     def test_item_in_cart(self):
         item = self.cart1.get_item_in_cart(self.product1.sku)

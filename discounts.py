@@ -14,7 +14,7 @@ class DiscountManager:
         self.discounts = ('bogof_discount', 'bulk_discount', 'loyalty_discount')
         self.cart = cart
 
-    def apply(self):
+    def get_discount_amount(self):
         """ Applies the relevant discounts for each cart order,
             in the order specified in self.discounts
         """
@@ -26,20 +26,21 @@ class DiscountManager:
 
     def bogof_discount(self):
         """ Buy one, get one free.
-            If there multiples - e.g. 4 items, BOGOF should apply to each item
+            If there are multiples - e.g. 4 items, BOGOF should apply to each item
         """
+        bogof_discount = 0
         for item in self.cart.items:
             if item.quantity > 1:
-                free_quantity = item.quantity - math.ceil(float(item.quantity) / 2)
-                discount = free_quantity * item.product.price
-                self.cart.set_total(self.cart.get_total() - discount)
+                bogof_discount += ((item.quantity / 2) * item.product.price)
+
+        self.cart._total -= bogof_discount
 
     def bulk_discount(self):
         """ 10% off when the total > £20 after BOGOF """
-        if self.cart.get_total() > 20:
-            self.cart.set_total(self.cart.get_total() * 0.9)
+        if self.cart._total > 20:
+            self.cart._total *= 0.9
 
     def loyalty_discount(self):
         """ 2% off when the user has a loyalty card """
         if self.cart.user.is_loyal:
-            self.cart.set_total(self.cart.get_total() * 0.98)
+            self.cart._total *= 0.98
